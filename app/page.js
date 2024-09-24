@@ -1,101 +1,77 @@
-import Image from "next/image";
+"use client";
+import { useState, useEffect } from "react";
+import MainContent from "./MainContent";
+import { Parisienne } from "next/font/google";
+import { useSearchParams } from "next/navigation"; // Import useSearchParams untuk menggantikan useRouter
 
-export default function Home() {
+const parisienne = Parisienne({
+  weight: ["400"],
+  subsets: ["latin"],
+});
+
+function HomePage() {
+  const searchParams = useSearchParams(); // Mengambil query parameter dari URL
+  const [nama, setNama] = useState("");
+  const [showMainContent, setShowMainContent] = useState(false);
+
+  // Ambil parameter "nama" dari URL dan simpan di state
+  useEffect(() => {
+    const namaParam = searchParams.get("nama");
+    setNama(namaParam || "Tamu"); // Jika nama tidak ada, default ke "Tamu"
+  }, [searchParams]);
+
+  const handleButtonClick = () => {
+    setShowMainContent(true);
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div>
+      {/* Overlay */}
+      <div
+        className={`${
+          showMainContent ? "hidden" : "overlay"
+        } text-black h-screen bg-cover`}
+        style={{
+          backgroundImage:
+            "url(https://document-export.canva.com/5qHlI/DAGRoc5qHlI/7/thumbnail/0003.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAQYCGKMUHWDTJW6UD%2F20240924%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240924T044733Z&X-Amz-Expires=7093&X-Amz-Signature=bbdf0df7a29e2ae5b226c78893911fd206af0d44f98cad64b27099ac05dec358&X-Amz-SignedHeaders=host&response-expires=Tue%2C%2024%20Sep%202024%2006%3A45%3A46%20GMT)",
+        }}
+      >
+        {/* Konten overlay */}
+        <div className={`${parisienne} pt-40 overflow-hidden`}>
+          <h3 className="text-xl text-center">The Wedding Of</h3>
+          <h1 className="text-center text-4xl font-bold">Syafar & Yulia</h1>
+          <h2 className="text-center mt-3">19 . 10 . 2024</h2>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="absolute bottom-52 left-0 right-0 flex justify-center items-end">
+          <div className="text-center">
+            <h1>Kepada Yang Terhormat</h1>
+            <p>Bapak/Ibu/Saudara/I</p>
+            <div className="bg-white border rounded-md p-10">
+              <h1>
+                <span className="font-semibold">{nama}</span> dan keluarga
+              </h1>
+            </div>
+          </div>
+        </div>
+        <div className="absolute bottom-32 left-0 right-0 flex justify-center z-20">
+          <button
+            className=" bg-white text-black px-10 py-2 rounded-md font-bold border shadow-xl"
+            onClick={handleButtonClick}
+          >
+            Buka Undangan
+          </button>
+        </div>
+        <img className="absolute -bottom-16 -left-32" src="bunga/buket.png" />
+        <img
+          className="absolute -rotate-[130deg] -top-10 -right-32 scale-75"
+          src="bunga/bungaprofile.png"
+        />
+      </div>
+
+      {/* Main Content */}
+      <MainContent show={showMainContent} />
     </div>
   );
 }
+
+export default HomePage;

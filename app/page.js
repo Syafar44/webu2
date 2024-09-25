@@ -1,13 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import MainContent from "./MainContent";
-import { Parisienne } from "next/font/google";
 import { useSearchParams } from "next/navigation"; // Import useSearchParams untuk menggantikan useRouter
-
-const parisienne = Parisienne({
-  weight: ["400"],
-  subsets: ["latin"],
-});
 
 function HomePage() {
   const searchParams = useSearchParams(); // Mengambil query parameter dari URL
@@ -37,7 +31,7 @@ function HomePage() {
         }}
       >
         {/* Konten overlay */}
-        <div className={`${parisienne} pt-40 overflow-hidden`}>
+        <div className={`pt-40 overflow-hidden`}>
           <h3 className="text-xl text-center">The Wedding Of</h3>
           <h1 className="text-center text-4xl font-bold">Syafar & Yulia</h1>
           <h2 className="text-center mt-3">19 . 10 . 2024</h2>
